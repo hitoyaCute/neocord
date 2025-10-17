@@ -72,6 +72,7 @@ function neocord:setup(...)
   utils.set_option(self, "client_id", "1157438221865717891") -- Your discord application id
   utils.set_option(self, "logo", "auto") -- auto or url
   utils.set_option(self, "logo_tooltip", nil) -- nil or string
+  utils.set_option(self, "custom_distro", "Neovim") -- custom distro lets goo
   utils.set_option(self, "main_image", "language") -- "language" or "logo"
   utils.set_option(self, "editing_text", "Editing %s")
   utils.set_option(self, "file_explorer_text", "Browsing %s")
@@ -781,7 +782,7 @@ function neocord:update_for_buffer(buffer, should_debounce)
   if utils.get_gui_info() ~= nil then
     distro_text = string.format("%s in %s", utils.get_nvim_distro(), utils.get_gui_info())
   else
-    distro_text = utils.get_nvim_distro()
+    distro_text = utils.get_nvim_distro(self.options.custom_distro)
   end
 
   local icon

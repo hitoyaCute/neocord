@@ -11,16 +11,16 @@
   <br>
   <br>
   <div>
-    <a href="https://github.com/Iogamaster/neocord/issues">
-        <img src="https://img.shields.io/github/issues/Iogamaster/neocord?color=fab387&labelColor=303446&style=for-the-badge">
+    <a href="https://github.com/hitoyaCute/neocord/issues">
+        <img src="https://img.shields.io/github/issues/hitoyaCute/neocord?color=fab387&labelColor=303446&style=for-the-badge">
     </a>
-    <a href="https://github.com/Iogamaster/neocord/stargazers">
-        <img src="https://img.shields.io/github/stars/Iogamaster/neocord?color=ca9ee6&labelColor=303446&style=for-the-badge">
+    <a href="https://github.com/hitoyaCute/neocord/stargazers">
+        <img src="https://img.shields.io/github/stars/hitoyaCute/neocord?color=ca9ee6&labelColor=303446&style=for-the-badge">
     </a>
-    <a href="https://github.com/Iogamaster/neocord">
-        <img src="https://img.shields.io/github/repo-size/Iogamaster/neocord?color=ea999c&labelColor=303446&style=for-the-badge">
+    <a href="https://github.com/hitoyaCute/neocord">
+        <img src="https://img.shields.io/github/repo-size/hitoyaCute/neocord?color=ea999c&labelColor=303446&style=for-the-badge">
     </a>
-    <a href="https://github.com/Iogamaster/neocord/blob/main/.github/LICENCE">
+    <a href="https://github.com/hitoyaCute/neocord/blob/main/.github/LICENCE">
         <img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=MIT&logoColor=ca9ee6&colorA=313244&colorB=cba6f7"/>
     </a>
     <br>
@@ -29,7 +29,7 @@
    </h1>
    <br>
 
-![image](https://github.com/IogaMaster/neocord/assets/67164465/2a6a2d6b-3f7f-4d88-8f6c-27ca6b7e4419)
+![image](https://github.com/hitoyaCute/neocord/assets/67164465/2a6a2d6b-3f7f-4d88-8f6c-27ca6b7e4419)
 
 ## Features
 * Light and unobtrusive

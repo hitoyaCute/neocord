@@ -36,6 +36,7 @@
 * Written in Pure Lua and is [highly configurable](#configuration)
 * Custom logo if desired.
 * Great looking icons!
+* Custom Distro Text because why not!?
 
 ## Installation
 Use your favorite plugin manager

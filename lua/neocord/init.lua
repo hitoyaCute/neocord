@@ -782,7 +782,7 @@ function neocord:update_for_buffer(buffer, should_debounce)
   if utils.get_gui_info() ~= nil then
     distro_text = string.format("%s in %s", utils.get_nvim_distro(), utils.get_gui_info())
   else
-    distro_text = utils.get_nvim_distro(self.options.custom_distro)
+    distro_text = utils.get_nvim_distro()
   end
 
   local icon
@@ -800,7 +800,7 @@ function neocord:update_for_buffer(buffer, should_debounce)
     large_image = use_language_as_main_image and utils.get_asset_url(icon) or logo,
     large_text = use_language_as_main_image and file_text or distro_text,
     small_image = use_language_as_main_image and logo or utils.get_asset_url(icon),
-    small_text = use_language_as_main_image and distro_text or file_text,
+    small_text = use_language_as_main_image and self.options.custom_distro,
   }
 
   local buttons = self:get_buttons(buffer, parent_dirpath)

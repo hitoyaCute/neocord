@@ -1,6 +1,6 @@
 local utils = {}
 
-function utils.get_nvim_distro(fall_back = "Neovim")
+function utils.get_nvim_distro(fall_back)
   if utils.module_exists("lazyvim") then
     return "LazyVim"
   elseif utils.module_exists("astronvim") then
@@ -12,6 +12,9 @@ function utils.get_nvim_distro(fall_back = "Neovim")
   elseif utils.module_exists("vapour") then
     return "VapourNvim"
   else
+    if fall_back == nil then
+      fall_back = "Neovim"
+    end
     return fall_back
   end
 end

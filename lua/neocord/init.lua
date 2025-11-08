@@ -217,7 +217,7 @@ function neocord:check_discord_socket(path)
       self.log:warn(string.format("%s: %s reloading", err_msg, err))
       self:reload_socket()
       if not self.discord:is_connected() then
-        self.lof.error("Cant reconnect")
+        self.log.error("Cant reconnect")
         return -- assuming the thing reloaded properly
       end
     end

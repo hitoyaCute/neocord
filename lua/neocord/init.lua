@@ -246,6 +246,7 @@ function neocord:connect(on_done)
       self.log:info("Already connected to Discord")
     elseif err == "ECONNREFUSED" then
       self.log:warn("Failed to connect to Discord: " .. err .. " (is Discord running?)")
+      self.discord:reconnect()
       return
     elseif err then
       self.log:debug("Failed to connect to Discord: " .. err)

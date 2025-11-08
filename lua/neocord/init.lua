@@ -36,7 +36,7 @@ function neocord:reload_socket()
   -- Initialize discord RPC client
   self.discord = Discord:init({
     logger = self.log,
-    client_id = options.client_id,
+    client_id = self.options.client_id,
     ipc_socket = discord_socket_path,
   })
 

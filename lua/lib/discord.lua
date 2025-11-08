@@ -1,7 +1,7 @@
 local Discord = {}
 
 function Discord:reconnect()
-  self.connect(
+  self:connect(
     function (err)
       -- if cant reconnect
       if err then

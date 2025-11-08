@@ -1,5 +1,17 @@
 local Discord = {}
 
+function Discord:reconnect()
+  self.connect(
+    function (err)
+      -- if cant reconnect
+      if err then
+        self.log:warn("reconnecting with 10 sec delay")
+        vim.defer_fn(connect, 10000)
+        return
+      end
+    end)
+end
+
 Discord.opcodes = {
   auth = 0,
   frame = 1,
@@ -44,10 +56,12 @@ function Discord:is_connected()
 end
 
 -- Disconnect from the local Discord RPC socket
+-- I added a auto reconnect when the socket is disconnected
 function Discord:disconnect(on_close)
-  self.pipe:shutdown()
+  -- self.pipe:shutdown()
   if not self.pipe:is_closing() then
-    self.pipe:close(on_close)
+    -- reconnect
+    self:reconnect()
   end
 end
 
@@ -130,6 +144,7 @@ function Discord:read_message(nonce, on_response, err, chunk)
   else
     -- TODO: Handle when pipe is closed
     self.log:warn("Pipe was closed")
+    self:reconnect()
   end
 end
 

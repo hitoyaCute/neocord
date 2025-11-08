@@ -21,6 +21,52 @@ local utils = require("neocord.utils")
 
 local global_start = os.time()
 
+
+-- hopefully
+local function neocord:reload_socket()
+    -- Get and check discord socket path
+  local discord_socket_path = self:get_discord_socket_path()
+  if discord_socket_path then
+    self.log:debug(string.format("Using Discord IPC socket path: %s", discord_socket_path))
+    self:check_discord_socket(discord_socket_path)
+  else
+    self.log:error("Failed to determine Discord IPC socket path")
+  end
+
+  -- Initialize discord RPC client
+  self.discord = Discord:init({
+    logger = self.log,
+    client_id = options.client_id,
+    ipc_socket = discord_socket_path,
+  })
+
+  -- Seed instance id using unique socket path
+  local seed_nums = {}
+  self.socket:gsub(".", function(c)
+    table.insert(seed_nums, c:byte())
+  end)
+  self.id = self.discord.generate_uuid(tonumber(table.concat(seed_nums)) / os.clock())
+  self.log:debug(string.format("Using id %s", self.id))
+
+  -- Ensure auto-update config is reflected in its global var setting
+  vim.api.nvim_set_var("neocord_auto_update", options.auto_update)
+
+  -- Set autocommands
+  vim.fn["neocord#SetAutoCmds"]()
+
+  -- Set logo
+
+  self.log:info("Completed plugin setup")
+
+  -- Set global variable to indicate plugin has been set up
+  vim.api.nvim_set_var("neocord_has_setup", 1)
+
+  -- Register self to any remote Neovim instances
+  self:register_self()
+end
+
+
+
 function neocord:setup(...)
   -- Support setup invocation via both dot and colon syntax.
   -- To maintain backwards compatibility, colon syntax will still
@@ -164,7 +210,8 @@ function neocord:check_discord_socket(path)
   vim.loop.fs_stat(path, function(err, stats)
     if err then
       local err_msg = "Failed to get socket information"
-      self.log:error(string.format("%s: %s", err_msg, err))
+      self.log:warn(string.format("%s: %s reloading", err_msg, err))
+      self:reload_socket()
       return
     end
 
@@ -1124,6 +1171,8 @@ function neocord:stop()
   self.discord:disconnect(function()
     self.log:info("Disconnected from Discord")
   end)
+  self.log:warn("reloading")
+  self:reload_socket()
 end
 
 --------------------------------------------------

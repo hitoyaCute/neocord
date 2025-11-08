@@ -41,28 +41,16 @@ function neocord:reload_socket()
   })
 
   -- Seed instance id using unique socket path
-  local seed_nums = {}
-  self.socket:gsub(".", function(c)
-    table.insert(seed_nums, c:byte())
-  end)
+
   self.id = self.discord.generate_uuid(tonumber(table.concat(seed_nums)) / os.clock())
   self.log:debug(string.format("Using id %s", self.id))
 
-  -- Ensure auto-update config is reflected in its global var setting
-  vim.api.nvim_set_var("neocord_auto_update", options.auto_update)
 
-  -- Set autocommands
-  vim.fn["neocord#SetAutoCmds"]()
-
-  -- Set logo
-
-  self.log:info("Completed plugin setup")
-
-  -- Set global variable to indicate plugin has been set up
-  vim.api.nvim_set_var("neocord_has_setup", 1)
 
   -- Register self to any remote Neovim instances
   self:register_self()
+  if not self.discord:is_connected():
+    vim.defer_fn(self:reload_socket, 5000)
 end
 
 
@@ -212,7 +200,9 @@ function neocord:check_discord_socket(path)
       local err_msg = "Failed to get socket information"
       self.log:warn(string.format("%s: %s reloading", err_msg, err))
       self:reload_socket()
-      return
+      if not self.discord:is_connected() then
+        return -- assuming the thing reloaded properly
+      end
     end
 
     if stats.type ~= "socket" then
@@ -1167,10 +1157,10 @@ function neocord:sync_peer_activity(data)
 end
 
 function neocord:stop()
-  self.log:debug("Disconnecting from Discord...")
-  self.discord:disconnect(function()
-    self.log:info("Disconnected from Discord")
-  end)
+  -- self.log:debug("Disconnecting from Discord...")
+  -- self.discord:disconnect(function()
+  --   self.log:info("Disconnected from Discord")
+  -- end)
   self.log:warn("reloading")
   self:reload_socket()
 end

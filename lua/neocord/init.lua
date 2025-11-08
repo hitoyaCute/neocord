@@ -59,7 +59,11 @@ function neocord:reload_socket()
   -- Register self to any remote Neovim instances
  
   if not self.discord:is_connected() then
-    vim.defer_fn(self.reload_socket, 5000)
+    vim.defer_fn(
+      function()
+        self.reload_socket
+      end
+      , 5000)
   else
     self:register_self()
     self.log:info("Completed plugin setup")

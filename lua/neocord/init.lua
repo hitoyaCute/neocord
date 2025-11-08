@@ -65,10 +65,7 @@ function neocord:reload_socket()
       end
       , 5000)
   else
-    self:register_self()
     self.log:info("Completed plugin setup")
-  
-    return self
   end
 end
 
@@ -220,6 +217,7 @@ function neocord:check_discord_socket(path)
       self.log:warn(string.format("%s: %s reloading", err_msg, err))
       self:reload_socket()
       if not self.discord:is_connected() then
+        self.lof.error("Cant reconnect")
         return -- assuming the thing reloaded properly
       end
     end
@@ -1182,6 +1180,9 @@ function neocord:stop()
   -- end)
   self.log:warn("reloading")
   self:reload_socket()
+  if not self.discord:is_connected() then
+    self.log:error("1184: cant connect")
+  end
 end
 
 --------------------------------------------------

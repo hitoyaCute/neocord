@@ -23,7 +23,7 @@ local global_start = os.time()
 
 
 -- hopefully
-local function neocord:reload_socket()
+function neocord:reload_socket()
     -- Get and check discord socket path
   local discord_socket_path = self:get_discord_socket_path()
   if discord_socket_path then

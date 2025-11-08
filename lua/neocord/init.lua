@@ -21,6 +21,11 @@ local utils = require("neocord.utils")
 
 local global_start = os.time()
 
+------------
+
+---section
+
+------------
 
 -- hopefully
 function neocord:reload_socket()

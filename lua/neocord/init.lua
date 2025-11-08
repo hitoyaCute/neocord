@@ -41,6 +41,10 @@ function neocord:reload_socket()
   })
 
   -- Seed instance id using unique socket path
+  local seed_nums = {}
+  self.socket:gsub(".", function(c)
+    table.insert(seed_nums, c:byte())
+  end)
 
   self.id = self.discord.generate_uuid(tonumber(table.concat(seed_nums)) / os.clock())
   self.log:debug(string.format("Using id %s", self.id))

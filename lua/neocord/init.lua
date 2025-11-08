@@ -61,7 +61,7 @@ function neocord:reload_socket()
   if not self.discord:is_connected() then
     vim.defer_fn(
       function()
-        self.reload_socket
+        self:reload_socket()
       end
       , 5000)
   else

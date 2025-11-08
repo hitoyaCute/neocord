@@ -67,8 +67,9 @@ function neocord:reload_socket()
   else
     self:register_self()
     self.log:info("Completed plugin setup")
+  
+    return self
   end
-  return self
 end
 
 
